@@ -1,7 +1,7 @@
 """
 Functions for TURNING the robot LEFT and RIGHT.
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Madison Robertson
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # TODO: 2. Implment turn_left_seconds, then the relevant part of the test function.
 #          Test and correct as needed.
@@ -26,7 +26,28 @@ def test_turn_left_turn_right():
       2. Same as #1, but gets degrees and runs turn_left_by_time.
       3. Same as #2, but runs turn_left_by_encoders.
       4. Same as #1, 2, 3, but tests the turn_right functions.
+
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+    assert left_motor.connected
+    time_s = 1
+    while time_s != 0:
+        time_s = int(input("Enter a time to drive (in seconds):"))
+        left_sp = int(input("Enter an integer for the left motor (between -100 to 100):"))
+        left_motor.run_forever(speed_sp = left_sp*8)
+        time.sleep(time_s)
+        left_motor.stop(stop_action = ev3.Motor.STOP_ACTION_BRAKE)
+
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    assert right_motor.connected
+    time_sp = 1
+    while time_sp != 0:
+        time_sp = int(input("Enter a time to drive (in seconds):"))
+        right_sp = int(input("Enter an integer for the right motor (between -100 to 100):"))
+        right_motor.run_forever(speed_sp=right_sp * 8)
+        time.sleep(time_sp)
+        right_motor.stop(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+
 
 
 def turn_left_seconds(seconds, speed, stop_action):
@@ -59,15 +80,15 @@ def turn_left_by_encoders(degrees, speed, stop_action):
     """
 
 
-def turn_right_seconds(seconds, speed, stop_action=):
+def turn_right_seconds(seconds, speed, stop_action):
     """ Calls turn_left_seconds with negative speeds to achieve turn_right motion. """
 
 
-def turn_right_by_time(degrees, speed, stop_action=):
+def turn_right_by_time(degrees, speed, stop_action):
     """ Calls turn_left_by_time with negative speeds to achieve turn_right motion. """
 
 
-def turn_right_by_encoders(degrees, speed, stop_action=):
+def turn_right_by_encoders(degrees, speed, stop_action):
     """ Calls turn_left_by_encoders with negative speeds to achieve turn_right motion. """
 
 
