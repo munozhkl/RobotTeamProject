@@ -30,6 +30,7 @@ def test_spin_left_spin_right():
     """
     # Test spin left seconds:
     seconds = 1
+    speed = 0
 
     while seconds > 0:
         seconds = int(input("Enter seconds to travel: "))
@@ -41,6 +42,7 @@ def test_spin_left_spin_right():
     #  Test spin left time
 
     speed = 0
+    degrees = 0
     while -100 <= speed <= 100:
         speed = int(input("Enter speed to travel (from -100 to 100): "))
         degrees = int(input("Enter degrees to spin: "))
@@ -50,6 +52,7 @@ def test_spin_left_spin_right():
     # test spin left by encoders
 
     speed = 0
+    degrees = 0
     while -100 <= speed <= 100:
         speed = int(input("Enter speed to travel (from -100 to 100): "))
         degrees = int(input("Enter degrees to spin: "))
@@ -60,6 +63,7 @@ def test_spin_left_spin_right():
 
     # test spin right by secomds
     seconds = 1
+    speed = 0
 
     while seconds > 0:
         seconds = int(input("Enter seconds to travel: "))
@@ -71,6 +75,7 @@ def test_spin_left_spin_right():
     # test spin right by time
 
     speed = 0
+    degrees = 0
     while -100 <= speed <= 100:
         speed = int(input("Enter speed to travel (from -100 to 100): "))
         degrees = int(input("Enter degrees to spin: "))
@@ -80,11 +85,12 @@ def test_spin_left_spin_right():
     # test spin right encoders
 
     speed = 0
+    degrees = 0
     while -100 <= speed <= 100:
         speed = int(input("Enter speed to travel (from -100 to 100): "))
         degrees = int(input("Enter degrees to spin: "))
     stop_action = "brake"
-    spin_left_by_time(degrees, speed, stop_action)
+    spin_right_by_encoders(degrees, speed, stop_action)
 
 def spin_left_seconds(seconds, speed, stop_action):
     """
