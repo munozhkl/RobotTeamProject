@@ -1,7 +1,7 @@
 """
 Functions for SPINNING the robot LEFT and RIGHT.
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Kathi Munoz.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # TODO: 2. Implment spin_left_seconds, then the relevant part of the test function.
 #          Test and correct as needed.
@@ -28,6 +28,52 @@ def test_spin_left_spin_right():
       3. Same as #2, but runs spin_left_by_encoders.
       4. Same as #1, 2, 3, but tests the spin_right functions.
     """
+    # Test spin left seconds:
+    seconds = 1
+
+
+    while seconds > 0:
+        seconds = int(input("Enter seconds to travel: "))
+        speed = int(input("Enter speed to travel (from -100 to 100): "))
+
+    stop_action = "brake"
+    spin_left_seconds(seconds, speed, stop_action)
+
+    #  Test spin left time
+
+    seconds = 1
+
+    while seconds > 0:
+        seconds = int(input("Enter seconds to travel: "))
+        speed = int(input("Enter speed to travel (from -100 to 100): "))
+        degrees = int(input("Enter degrees to spin: "))
+    stop_action = "brake"
+    spin_left_by_time(degrees, speed, stop_action)
+
+    # test spin left by encoders
+
+    # test spin right by secomds
+    seconds = 1
+
+    while seconds > 0:
+        seconds = int(input("Enter seconds to travel: "))
+        speed = int(input("Enter speed to travel (from -100 to 100): "))
+
+    stop_action = "brake"
+    spin_right_seconds(seconds, speed, stop_action)
+
+    # test spin right by time
+
+    seconds = 1
+
+    while seconds > 0:
+        seconds = int(input("Enter seconds to travel: "))
+        speed = int(input("Enter speed to travel (from -100 to 100): "))
+        degrees = int(input("Enter degrees to spin: "))
+    stop_action = "brake"
+    spin_right_by_time(degrees, speed, stop_action)
+
+    # test spin right encoders
 
 
 def spin_left_seconds(seconds, speed, stop_action):
@@ -36,6 +82,18 @@ def spin_left_seconds(seconds, speed, stop_action):
     where speed is between -100 (full speed spin_right) and 100 (full speed spin_left).
     Uses the given stop_action.
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    assert left_motor.connected
+    assert right_motor.connected
+
+    left_motor.run_forever(speed_sp= -speed, stop_action = stop_action)
+    right_motor.run_forever(speed_sp = speed, stop_action = stop_action)
+    time.sleep(seconds)
+    left_motor.stop()
+    right_motor.stop()
+
 
 
 def spin_left_by_time(degrees, speed, stop_action):
@@ -48,6 +106,20 @@ def spin_left_by_time(degrees, speed, stop_action):
       2. Sleep for the computed number of seconds.
       3. Stop moving.
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    assert left_motor.connected
+    assert right_motor.connected
+
+    seconds = degrees / speed
+    left_motor.run_forever(speed_sp = -speed, stop_action = stop_action)
+    right_motor.run_forever(speed_sp = speed, stop_action = stop_action)
+    time.sleep(seconds)
+    left_motor.stop
+    right_motor.stop
+
+
 
 
 def spin_left_by_encoders(degrees, speed, stop_action):
@@ -62,11 +134,11 @@ def spin_left_by_encoders(degrees, speed, stop_action):
 
 def spin_right_seconds(seconds, speed, stop_action):
     """ Calls spin_left_seconds with negative speeds to achieve spin_right motion. """
-
+    spin_left_seconds(seconds, -speed, stop_action)
 
 def spin_right_by_time(degrees, speed, stop_action):
     """ Calls spin_left_by_time with negative speeds to achieve spin_right motion. """
-
+    spin_left_by_time(degrees, -speed, stop_action)
 
 def spin_right_by_encoders(degrees, speed, stop_action):
     """ Calls spin_left_by_encoders with negative speeds to achieve spin_right motion. """
