@@ -28,17 +28,25 @@ def test_turn_left_turn_right():
       4. Same as #1, 2, 3, but tests the turn_right functions.
 
     """
-    left_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
     assert left_motor.connected
     time_s = 1
     while time_s != 0:
         time_s = int(input("Enter a time to drive (in seconds):"))
         left_sp = int(input("Enter an integer for the left motor (between -100 to 100):"))
-        left_motor.run_forever(speed_sp = left_sp*8)
+        left_motor.run_forever(speed_sp=left_sp*8)
         time.sleep(time_s)
-        left_motor.stop(stop_action = ev3.Motor.STOP_ACTION_BRAKE)
+        left_motor.stop(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
 
-    right_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    time_s1 = 1
+    while time_s1 != 0:
+        time_s1 = int(input("Enter a time to drive (in seconds):"))
+        left_sp1 = int(input("Enter an integer for the left motor (in degrees):"))
+        left_motor.run_forever(speed_sp=(left_sp1*8))
+        time.sleep(time_s1)
+        left_motor.stop(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
     assert right_motor.connected
     time_sp = 1
     while time_sp != 0:
