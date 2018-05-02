@@ -17,7 +17,7 @@ def test_forward_backward():
     inches = int(input('inches to run?'))
     spd = int(input('speed from - 100 to + 100'))
     stop = input('stopping action?')
-    forward_by_time(inches, spd, stop)
+    backward_seconds(inches, spd, stop)
 
     """
     Tests the forward and backward functions, as follows:
@@ -76,7 +76,7 @@ def forward_by_time(inches, speed, stop_action):
 
 
 def forward_by_encoders(inches, speed, stop_action):
-    totdegrees = inches / ((1.3 * 3.14) * 360)
+    totdegrees = (inches / (1.3 * 3.14)) * 360
     newtime = abs(totdegrees / (speed * 8))
     forward_seconds(newtime, speed, stop_action)
 
