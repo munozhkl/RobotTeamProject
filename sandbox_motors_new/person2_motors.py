@@ -14,6 +14,7 @@ import ev3dev.ev3 as ev3
 import time
 
 
+
 def test_spin_left_spin_right():
     """
     Tests the spin_left and spin_right functions, as follows:
@@ -33,31 +34,33 @@ def test_spin_left_spin_right():
     speed = 0
 
     while seconds > 0:
+        print('Testing Spin Left by Seconds')
         seconds = int(input("Enter seconds to travel: "))
         speed = int(input("Enter speed to travel (from -100 to 100): "))
-
-    stop_action = "brake"
-    spin_left_seconds(seconds, speed, stop_action)
+        stop_action = "brake"
+        spin_left_seconds(seconds, speed, stop_action)
 
     #  Test spin left time
 
     speed = 0
     degrees = 0
     while -100 <= speed <= 100:
+        print('Testing spin left by time')
         speed = int(input("Enter speed to travel (from -100 to 100): "))
         degrees = int(input("Enter degrees to spin: "))
-    stop_action = "brake"
-    spin_left_by_time(degrees, speed, stop_action)
+        stop_action = "brake"
+        spin_left_by_time(degrees, speed, stop_action)
 
     # test spin left by encoders
 
     speed = 0
     degrees = 0
     while -100 <= speed <= 100:
+        print('Testing spin left by encoders')
         speed = int(input("Enter speed to travel (from -100 to 100): "))
         degrees = int(input("Enter degrees to spin: "))
-    stop_action = "brake"
-    spin_left_by_encoders(degrees, speed, stop_action)
+        stop_action = "brake"
+        spin_left_by_encoders(degrees, speed, stop_action)
 
 
 
@@ -66,31 +69,34 @@ def test_spin_left_spin_right():
     speed = 0
 
     while seconds > 0:
+        print('Testing spin right by seconds')
         seconds = int(input("Enter seconds to travel: "))
         speed = int(input("Enter speed to travel (from -100 to 100): "))
-
-    stop_action = "brake"
-    spin_right_seconds(seconds, speed, stop_action)
+        stop_action = "brake"
+        spin_right_seconds(seconds, speed, stop_action)
 
     # test spin right by time
 
     speed = 0
     degrees = 0
     while -100 <= speed <= 100:
+        print('Testing spin right by time')
         speed = int(input("Enter speed to travel (from -100 to 100): "))
         degrees = int(input("Enter degrees to spin: "))
-    stop_action = "brake"
-    spin_right_by_time(degrees, speed, stop_action)
+        stop_action = "brake"
+        spin_right_by_time(degrees, speed, stop_action)
 
     # test spin right encoders
 
     speed = 0
     degrees = 0
     while -100 <= speed <= 100:
+        print('Testing spin right by encoders')
         speed = int(input("Enter speed to travel (from -100 to 100): "))
         degrees = int(input("Enter degrees to spin: "))
-    stop_action = "brake"
-    spin_right_by_encoders(degrees, speed, stop_action)
+        stop_action = "brake"
+        spin_right_by_encoders(degrees, speed, stop_action)
+
 
 def spin_left_seconds(seconds, speed, stop_action):
     """
@@ -128,7 +134,7 @@ def spin_left_by_time(degrees, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
 
-    seconds = degrees / speed
+    seconds = degrees / abs(speed)
     left_motor.run_forever(speed_sp = -speed, stop_action = stop_action)
     right_motor.run_forever(speed_sp = speed, stop_action = stop_action)
     time.sleep(seconds)
@@ -152,7 +158,7 @@ def spin_left_by_encoders(degrees, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
 
-    left_motor.run_to_rel_pos(position_sp = degrees, speed_sp = -speed, stop_action = stop_action)
+    left_motor.run_to_rel_pos(position_sp = -degrees, speed_sp = speed, stop_action = stop_action)
     right_motor.run_to_rel_pos(position_sp = degrees, speed_sp = speed, stop_action = stop_action)
     left_motor.wait_while(ev3.Motor.STATE_RUNNING)
     right_motor.wait_while(ev3.Motor.STATE_RUNNING)
@@ -169,6 +175,6 @@ def spin_right_by_time(degrees, speed, stop_action):
 
 def spin_right_by_encoders(degrees, speed, stop_action):
     """ Calls spin_left_by_encoders with negative speeds to achieve spin_right motion. """
-    spin_left_seconds(degrees, -speed, stop_action)
+    spin_left_by_encoders(degrees, -speed, stop_action)
 
 test_spin_left_spin_right()

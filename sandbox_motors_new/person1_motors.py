@@ -14,10 +14,10 @@ import time
 
 
 def test_forward_backward():
-    sec = int(input('seconds to run?'))
+    inches = int(input('inches to run?'))
     spd = int(input('speed from - 100 to + 100'))
     stop = input('stopping action?')
-    forward_seconds(sec, spd, stop)
+    backward_seconds(inches, spd, stop)
 
     """
     Tests the forward and backward functions, as follows:
@@ -59,6 +59,11 @@ def forward_seconds(seconds, speed, stop_action):
 
 
 def forward_by_time(inches, speed, stop_action):
+    totdegrees = (inches/(1.3*3.14))*360
+    newtime = abs(totdegrees/(speed*8))
+    forward_seconds(newtime,speed,stop_action)
+
+
     """
     Makes the robot move forward the given number of inches at the given speed,
     where speed is between -100 (full speed backward) and 100 (full speed forward).
@@ -71,6 +76,11 @@ def forward_by_time(inches, speed, stop_action):
 
 
 def forward_by_encoders(inches, speed, stop_action):
+    totdegrees = (inches / (1.3 * 3.14)) * 360
+    newtime = abs(totdegrees / (speed * 8))
+    forward_seconds(newtime, speed, stop_action)
+
+
     """
     Makes the robot move forward the given number of inches at the given speed,
     where speed is between -100 (full speed backward) and 100 (full speed forward).
@@ -81,14 +91,18 @@ def forward_by_encoders(inches, speed, stop_action):
 
 
 def backward_seconds(seconds, speed, stop_action):
+    forward_seconds(seconds, -speed, stop_action)
     """ Calls forward_seconds with negative speeds to achieve backward motion. """
 
 
 def backward_by_time(inches, speed, stop_action):
+    forward_by_time(inches, -speed, stop_action)
     """ Calls forward_by_time with negative speeds to achieve backward motion. """
 
 
 def backward_by_encoders(inches, speed, stop_action):
+    forward_by_encoders(inches, -speed, stop_action)
+
     """ Calls forward_by_encoders with negative speeds to achieve backward motion. """
 
 
