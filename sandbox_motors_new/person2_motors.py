@@ -175,6 +175,6 @@ def spin_right_by_time(degrees, speed, stop_action):
 
 def spin_right_by_encoders(degrees, speed, stop_action):
     """ Calls spin_left_by_encoders with negative speeds to achieve spin_right motion. """
-    spin_left_seconds(degrees, -speed, stop_action)
+    spin_left_by_encoders(degrees, -speed, stop_action)
 
 test_spin_left_spin_right()
