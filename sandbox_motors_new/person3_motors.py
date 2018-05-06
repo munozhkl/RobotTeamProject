@@ -36,14 +36,19 @@ def test_turn_left_turn_right():
         stop_action = "brake"
         turn_left_seconds(seconds, speed, stop_action)
 
-
-    speed = 0
-    while -100 <= speed <= 100:
+    speed = 1
+    while speed != 0:
         speed = (int(input("Enter an integer for speed:"))*8)
-        degrees = (int(input("Enter an integer for degrees:")))
+        degrees = (int(input("Enter an integer for degrees (left by time):")))
         stop_action = "brake"
         turn_left_by_time(degrees, speed, stop_action)
 
+    speed = 1
+    while speed != 0:
+        speed = (int(input("Enter an integer for speed:"))*8)
+        degrees = (int(input("Enter an integer for degrees (encoders):")))
+        stop_action = "brake"
+        turn_left_by_encoders(degrees, speed, stop_action)
 
     seconds = 1
     while seconds != 0:
@@ -51,6 +56,20 @@ def test_turn_left_turn_right():
         speed = (int(input("Enter an integer for the right motor (between -100 to 100):"))*8)
         stop_action = "brake"
         turn_right_seconds(seconds, speed, stop_action)
+
+    speed = 1
+    while speed != 0:
+        speed = (int(input("Enter an integer for speed:")) * 8)
+        degrees = (int(input("Enter an integer for degrees (left by time):")))
+        stop_action = "brake"
+        turn_right_by_time(degrees, speed, stop_action)
+
+    speed = 1
+    while speed != 0:
+        speed = (int(input("Enter an integer for speed:")) * 8)
+        degrees = (int(input("Enter an integer for degrees (encoders):")))
+        stop_action = "brake"
+        turn_right_by_encoders(degrees, speed, stop_action)
 
 
 
@@ -94,6 +113,12 @@ def turn_left_by_encoders(degrees, speed, stop_action):
       1. Compute the number of degrees the wheels should turn to achieve the desired distance.
       2. Move until the computed number of degrees is reached.
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    assert left_motor.connected
+    left_motor.run_to_rel_pos(position = degrees, speed_sp = speed, stop_action = stop_action)
+    left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+    left_motor.stop()
+
 
 
 def turn_right_seconds(seconds, speed, stop_action):
