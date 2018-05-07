@@ -37,15 +37,16 @@ def test_turn_left_turn_right():
         turn_left_seconds(seconds, speed, stop_action)
 
     speed = 1
-    while speed != 0:
-        speed = (int(input("Enter an integer for speed:"))*8)
+    while speed -800 <= speed <= 800:
+        speed = (int(input("Enter an integer for speed (between -100 to 100):"))*8)
         degrees = (int(input("Enter an integer for degrees (left by time):")))
         stop_action = "brake"
         turn_left_by_time(degrees, speed, stop_action)
 
     speed = 1
-    while speed != 0:
-        speed = (int(input("Enter an integer for speed:"))*8)
+    while speed -800 <= speed <= 800:
+        print('Test for encoder')
+        speed = (int(input("Enter an integer for speed (between -100 to 100):"))*8)
         degrees = (int(input("Enter an integer for degrees (encoders):")))
         stop_action = "brake"
         turn_left_by_encoders(degrees, speed, stop_action)
@@ -58,16 +59,16 @@ def test_turn_left_turn_right():
         turn_right_seconds(seconds, speed, stop_action)
 
     speed = 1
-    while speed != 0:
+    while speed -800 <= speed <= 800:
         speed = (int(input("Enter an integer for speed:")) * 8)
         degrees = (int(input("Enter an integer for degrees (left by time):")))
         stop_action = "brake"
         turn_right_by_time(degrees, speed, stop_action)
 
     speed = 1
-    while speed != 0:
+    while speed -800 <= speed <= 800:
         speed = (int(input("Enter an integer for speed:")) * 8)
-        degrees = (int(input("Enter an integer for degrees (encoders):")))
+        degrees = (int(input("Enter an integer for degrees (encoders):"))*8)
         stop_action = "brake"
         turn_right_by_encoders(degrees, speed, stop_action)
 
@@ -100,7 +101,7 @@ def turn_left_by_time(degrees, speed, stop_action):
     left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
     assert left_motor.connected
     left_motor.run_forever(speed_sp=-speed, stop_action=stop_action)
-    seconds = abs(degrees*9.555 / speed*8)
+    seconds = abs(degrees*1.15/ speed*8)
     time.sleep(seconds)
     left_motor.stop()
 
@@ -115,26 +116,27 @@ def turn_left_by_encoders(degrees, speed, stop_action):
     """
     left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
     assert left_motor.connected
-    left_motor.run_to_rel_pos(position = degrees, speed_sp =-speed, stop_action = stop_action)
+    left_motor.run_to_rel_pos(position_sp = degrees, speed_sp =-speed, stop_action = stop_action)
     left_motor.wait_while(ev3.Motor.STATE_RUNNING)
     left_motor.stop()
 
 
 
+
 def turn_right_seconds(seconds, speed, stop_action):
     """ Calls turn_left_seconds with negative speeds to achieve turn_right motion. """
-    turn_left_seconds(seconds, speed, stop_action)
+    turn_left_seconds(seconds, -speed, stop_action)
 
 
 def turn_right_by_time(degrees, speed, stop_action):
     """ Calls turn_left_by_time with negative speeds to achieve turn_right motion. """
-    turn_left_by_time(degrees, speed, stop_action)
+    turn_left_by_time(degrees, -speed, stop_action)
 
 
 
 def turn_right_by_encoders(degrees, speed, stop_action):
     """ Calls turn_left_by_encoders with negative speeds to achieve turn_right motion. """
-    turn_left_by_encoders(degrees, speed, stop_action)
+    turn_left_by_encoders(degrees, -speed, stop_action)
 
 
 test_turn_left_turn_right()
