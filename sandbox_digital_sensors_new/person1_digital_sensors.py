@@ -7,11 +7,11 @@ Person 1: ev3.TouchSensor
 Person 2: ev3.Button
 Person 3: ev3.RemoteControl
 
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Alex Huber.
+"""  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # -----------------------------------------------------------------------------
-# TODO: 2.  WITH YOUR INSTRUCTOR, discuss the "big picture" of this project,
+# done: 2.  WITH YOUR INSTRUCTOR, discuss the "big picture" of this project,
 #           as described in the   _README_FIRST.txt   file.
 #
 # When your   ** ENTIRE TEAM ** understands that:
@@ -34,7 +34,7 @@ def main():
     """ Calls the   TEST   functions in this module. """
     # Uncomment these tests as you proceed through this module.
 
-    # run_test_touch_sensor()
+    #run_test_touch_sensor()
     # run_test_wait_for_press()
     # run_test_show_images()
 
@@ -99,6 +99,12 @@ def run_test_touch_sensor():
 
 
 def print_state_of_touch_sensor(n, seconds_per_print):
+    touch = ev3.TouchSensor()
+
+    for k in range(n):
+
+        print('Touch Sensors state is', touch.is_pressed)
+        time.sleep(seconds_per_print)
     """
     Constructs an ev3.TouchSensor object.
     Then does the following  n  times (where n is the first argument):
@@ -106,7 +112,7 @@ def print_state_of_touch_sensor(n, seconds_per_print):
        2. SLEEPs for the given number of seconds.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3.  Implement and test this function.
+    # done: 3.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
 
@@ -142,6 +148,12 @@ def run_test_wait_for_press():
 
 
 def wait_for_press():
+    press = ev3.TouchSensor()
+    while True:
+        if press.is_pressed == 1:
+            break
+        time.sleep(.05)
+
     """
     Constructs an ev3.TouchSensor object.
     Then repeatedly:
@@ -151,7 +163,7 @@ def wait_for_press():
        2. Sleeps for a small amount (say, 0.05 seconds).
     """
     # -------------------------------------------------------------------------
-    # TODO: 4.  Implement and test this function.
+    # done: 4.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
 
@@ -208,6 +220,15 @@ def run_test_show_images():
 
 
 def show_images(list_of_images):
+    screen = ev3.Screen()
+    touch = ev3.TouchSensor()
+
+    for k in range(len(list_of_images)):
+        print('press the touch sensor for next image')
+        list_of_images[1].attatch_to(screen)
+        while touch.is_pressed == 0:
+            
+
     """
     Constructs an ev3.Screen object and an ev3.TouchSensor object.
     Then, for each image in the given list of images:
