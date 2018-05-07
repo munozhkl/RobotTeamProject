@@ -7,11 +7,11 @@ Person 1: ev3.TouchSensor
 Person 2: ev3.Button
 Person 3: ev3.RemoteControl
 
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Kathi Munoz.
+"""  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # -----------------------------------------------------------------------------
-# TODO: 2.  WITH YOUR INSTRUCTOR, discuss the "big picture" of this project,
+# Done: 2.  WITH YOUR INSTRUCTOR, discuss the "big picture" of this project,
 #           as described in the   _README_FIRST.txt   file.
 #
 # When your   ** ENTIRE TEAM ** understands that:
@@ -34,7 +34,7 @@ def main():
     # Uncomment these tests as you proceed through this module.
 
     # run_test_buttons_on_brick()
-    # run_test_wait_for_press_on_brick_button()
+    run_test_wait_for_press_on_brick_button()
     # run_test_show_leds()
 
 
@@ -116,10 +116,13 @@ def print_state_of_left_button_on_brick(n, seconds_per_print):
        2. SLEEPs for the given number of seconds.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3.  Implement and test this function.
+    # done: 3.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
-
+    button = ev3.Button()
+    for _ in range(n):
+        print(button.left)
+        time.sleep(seconds_per_print)
 
 def run_test_wait_for_press_on_brick_button():
     """ Tests the   wait_for_UP_button_press   function. """
@@ -176,9 +179,14 @@ def wait_for_up_button_press():
        2. Sleeps for a small amount (say, 0.05 seconds).
     """
     # -------------------------------------------------------------------------
-    # TODO: 4.  Implement and test this function.
+    # done: 4.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
+    button = ev3.Button()
+    while True:
+        if button.up is True:
+            break
+        time.sleep(0.05)
 
 
 def run_test_show_leds():
@@ -205,6 +213,19 @@ def show_leds():
        -- DOWN button:  Both LEDs turn off (i.e., to BLACK).
        -- BACKSPACE button: The program breaks out of the loop.
     """
+    button = ev3.Button()
+    while True:
+        if button.left is True:
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+        if button.right is True:
+            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
+        if button.up is True:
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.AMBER)
+        if button.down is True:
+            ev3.Leds.all_off()
+        if button.backspace is True:
+            break
+
 
 
 # -----------------------------------------------------------------------------
