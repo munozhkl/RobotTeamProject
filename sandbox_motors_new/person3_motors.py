@@ -1,7 +1,7 @@
 """
 Functions for TURNING the robot LEFT and RIGHT.
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Madison Robertson
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # TODO: 2. Implment turn_left_seconds, then the relevant part of the test function.
 #          Test and correct as needed.
@@ -26,7 +26,52 @@ def test_turn_left_turn_right():
       2. Same as #1, but gets degrees and runs turn_left_by_time.
       3. Same as #2, but runs turn_left_by_encoders.
       4. Same as #1, 2, 3, but tests the turn_right functions.
+
     """
+
+    seconds = 1
+    while seconds != 0:
+        seconds = int(input("Enter a time to drive (in seconds):"))
+        speed = (int(input("Enter an integer for the left motor (between -100 to 100):")))*8
+        stop_action = "brake"
+        turn_left_seconds(seconds, speed, stop_action)
+
+    speed = 1
+    while speed -800 <= speed <= 800:
+        speed = (int(input("Enter an integer for speed (between -100 to 100):"))*8)
+        degrees = (int(input("Enter an integer for degrees (left by time):")))
+        stop_action = "brake"
+        turn_left_by_time(degrees, speed, stop_action)
+
+    speed = 1
+    while speed -800 <= speed <= 800:
+        print('Test for encoder')
+        speed = (int(input("Enter an integer for speed (between -100 to 100):"))*8)
+        degrees = (int(input("Enter an integer for degrees (encoders):")))
+        stop_action = "brake"
+        turn_left_by_encoders(degrees, speed, stop_action)
+
+    seconds = 1
+    while seconds != 0:
+        seconds = (int(input("Enter a time to drive (in seconds):")))
+        speed = (int(input("Enter an integer for the right motor (between -100 to 100):"))*8)
+        stop_action = "brake"
+        turn_right_seconds(seconds, speed, stop_action)
+
+    speed = 1
+    while speed -800 <= speed <= 800:
+        speed = (int(input("Enter an integer for speed:")) * 8)
+        degrees = (int(input("Enter an integer for degrees (left by time):")))
+        stop_action = "brake"
+        turn_right_by_time(degrees, speed, stop_action)
+
+    speed = 1
+    while speed -800 <= speed <= 800:
+        speed = (int(input("Enter an integer for speed:")) * 8)
+        degrees = (int(input("Enter an integer for degrees (encoders):"))*8)
+        stop_action = "brake"
+        turn_right_by_encoders(degrees, speed, stop_action)
+
 
 
 def turn_left_seconds(seconds, speed, stop_action):
@@ -35,6 +80,12 @@ def turn_left_seconds(seconds, speed, stop_action):
     where speed is between -100 (full speed turn_right) and 100 (full speed turn_left).
     Uses the given stop_action.
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    assert left_motor.connected
+    left_motor.run_forever(speed_sp= -speed,stop_action = stop_action)
+    time.sleep(seconds)
+    left_motor.stop()
+
 
 
 def turn_left_by_time(degrees, speed, stop_action):
@@ -47,6 +98,12 @@ def turn_left_by_time(degrees, speed, stop_action):
       2. Sleep for the computed number of seconds.
       3. Stop moving.
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    assert left_motor.connected
+    left_motor.run_forever(speed_sp=-speed, stop_action=stop_action)
+    seconds = abs(degrees*1.15/ speed*8)
+    time.sleep(seconds)
+    left_motor.stop()
 
 
 def turn_left_by_encoders(degrees, speed, stop_action):
@@ -57,18 +114,29 @@ def turn_left_by_encoders(degrees, speed, stop_action):
       1. Compute the number of degrees the wheels should turn to achieve the desired distance.
       2. Move until the computed number of degrees is reached.
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    assert left_motor.connected
+    left_motor.run_to_rel_pos(position_sp = degrees, speed_sp =-speed, stop_action = stop_action)
+    left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+    left_motor.stop()
 
 
-def turn_right_seconds(seconds, speed, stop_action=):
+
+
+def turn_right_seconds(seconds, speed, stop_action):
     """ Calls turn_left_seconds with negative speeds to achieve turn_right motion. """
+    turn_left_seconds(seconds, -speed, stop_action)
 
 
-def turn_right_by_time(degrees, speed, stop_action=):
+def turn_right_by_time(degrees, speed, stop_action):
     """ Calls turn_left_by_time with negative speeds to achieve turn_right motion. """
+    turn_left_by_time(degrees, -speed, stop_action)
 
 
-def turn_right_by_encoders(degrees, speed, stop_action=):
+
+def turn_right_by_encoders(degrees, speed, stop_action):
     """ Calls turn_left_by_encoders with negative speeds to achieve turn_right motion. """
+    turn_left_by_encoders(degrees, -speed, stop_action)
 
 
 test_turn_left_turn_right()

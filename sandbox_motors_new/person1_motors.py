@@ -1,9 +1,9 @@
 """
 Functions for moving the robot FORWARD and BACKWARD.
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Alex Huber
+"""  # done 1. PUT YOUR NAME IN THE ABOVE LINE.
 
-# TODO: 2. Implment forward_seconds, then the relevant part of the test function.
+# done: 2. Implment forward_seconds, then the relevant part of the test function.
 #          Test and correct as needed.
 #   Then repeat for forward_by_time.
 #   Then repeat for forward_by_encoders.
@@ -14,6 +14,11 @@ import time
 
 
 def test_forward_backward():
+    inches = int(input('inches to run?'))
+    spd = int(input('speed from - 100 to + 100'))
+    stop = input('stopping action?')
+    backward_seconds(inches, spd, stop)
+
     """
     Tests the forward and backward functions, as follows:
       1. Repeatedly:
@@ -30,14 +35,35 @@ def test_forward_backward():
 
 
 def forward_seconds(seconds, speed, stop_action):
+
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    assert left_motor.connected
+    assert right_motor.connected
+    robotspeed = speed * 8
+    left_motor.run_forever(speed_sp=robotspeed)
+    right_motor.run_forever(speed_sp=robotspeed)
+    time.sleep(seconds)
+    left_motor.stop(stop_action=stop_action)
+    right_motor.stop(stop_action=stop_action)
+    left_motor.stop()
+    right_motor.stop()
+
+
     """
     Makes the robot move forward for the given number of seconds at the given speed,
     where speed is between -100 (full speed backward) and 100 (full speed forward).
-    Uses the given stop_action.
+    Uses the given stop_action. 
     """
 
 
 def forward_by_time(inches, speed, stop_action):
+    totdegrees = (inches/(1.3*3.14))*360
+    newtime = abs(totdegrees/(speed*8))
+    forward_seconds(newtime,speed,stop_action)
+
+
     """
     Makes the robot move forward the given number of inches at the given speed,
     where speed is between -100 (full speed backward) and 100 (full speed forward).
@@ -50,6 +76,11 @@ def forward_by_time(inches, speed, stop_action):
 
 
 def forward_by_encoders(inches, speed, stop_action):
+    totdegrees = (inches / (1.3 * 3.14)) * 360
+    newtime = abs(totdegrees / (speed * 8))
+    forward_seconds(newtime, speed, stop_action)
+
+
     """
     Makes the robot move forward the given number of inches at the given speed,
     where speed is between -100 (full speed backward) and 100 (full speed forward).
@@ -60,14 +91,18 @@ def forward_by_encoders(inches, speed, stop_action):
 
 
 def backward_seconds(seconds, speed, stop_action):
+    forward_seconds(seconds, -speed, stop_action)
     """ Calls forward_seconds with negative speeds to achieve backward motion. """
 
 
 def backward_by_time(inches, speed, stop_action):
+    forward_by_time(inches, -speed, stop_action)
     """ Calls forward_by_time with negative speeds to achieve backward motion. """
 
 
 def backward_by_encoders(inches, speed, stop_action):
+    forward_by_encoders(inches, -speed, stop_action)
+
     """ Calls forward_by_encoders with negative speeds to achieve backward motion. """
 
 
