@@ -7,11 +7,11 @@ Person 1: ev3.TouchSensor
 Person 2: ev3.Button
 Person 3: ev3.RemoteControl
 
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Madison Robertson.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # -----------------------------------------------------------------------------
-# TODO: 2.  WITH YOUR INSTRUCTOR, discuss the "big picture" of this project,
+# DONE: 2.  WITH YOUR INSTRUCTOR, discuss the "big picture" of this project,
 #           as described in the   _README_FIRST.txt   file.
 #
 # When your   ** ENTIRE TEAM ** understands that:
@@ -117,9 +117,14 @@ def print_state_of_blue_up_button_on_ir_beacon(n, seconds_per_print):
        2. SLEEPs for the given number of seconds.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3.  Implement and test this function.
+    # DONE: 3.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
+    button = ev3.Button()
+    for k in range(n):
+        print(button.blue_up)
+        time.sleep(seconds_per_print)
+
 
 
 def run_test_wait_for_press_on_ir_beacon_button():
@@ -183,9 +188,14 @@ def wait_for_RED_DOWN_button_press():
        2. Sleeps for a small amount (say, 0.05 seconds).
     """
     # -------------------------------------------------------------------------
-    # TODO: 4.  Implement and test this function.
+    # DONE: 4.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
+    button = ev3.Button()
+    while True:
+        if button.red_down is True:
+            break
+        time.sleep(.05)
 
 
 def run_test_make_sounds():
@@ -213,6 +223,18 @@ def make_sounds():
               "/home/robot/csse120/assets/sounds/awesome_pcm.wav"
        -- BLUE_DOWN button:  The program breaks out of the loop.
     """
+    button = ev3.Button()
+    while True:
+        if button.red_up is True:
+            ev3.Sound.beep().wait()
+        if button.red_down is True:
+            ev3.Sound.speak("Hello").wait()
+        if button.blue_up is True:
+            ev3.Sound.play("/home/robot/csse120/assets/sounds/awesome_pcm.wav").wait()
+        if button.blue_down is True:
+            break
+
+
 
 
 # -----------------------------------------------------------------------------
