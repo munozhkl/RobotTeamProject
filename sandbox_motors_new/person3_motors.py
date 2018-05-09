@@ -116,7 +116,7 @@ def turn_left_by_encoders(degrees, speed, stop_action):
     """
     left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
     assert left_motor.connected
-    left_motor.run_to_rel_pos(position_sp = degrees, speed_sp =-speed, stop_action = stop_action)
+    left_motor.run_to_rel_pos(speed_sp =-speed, position_sp = degrees, stop_action = stop_action)
     left_motor.wait_while(ev3.Motor.STATE_RUNNING)
     left_motor.stop()
 

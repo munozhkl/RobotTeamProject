@@ -33,7 +33,7 @@ def main():
     """ Calls the   TEST   functions in this module. """
     # Uncomment these tests as you proceed through this module.
 
-    # run_test_buttons_on_ir_beacon()
+    run_test_buttons_on_ir_beacon()
     # run_test_wait_for_press_on_ir_beacon_button()
     # run_test_make_sounds()
 
@@ -120,7 +120,7 @@ def print_state_of_blue_up_button_on_ir_beacon(n, seconds_per_print):
     # DONE: 3.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
-    remote = ev3.RemoteControl()
+    remote = ev3.RemoteControl(channel = 1)
     for k in range(n):
         print(remote.blue_up)
         time.sleep(seconds_per_print)
@@ -191,7 +191,7 @@ def wait_for_RED_DOWN_button_press():
     # DONE: 4.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
-    remote = ev3.RemoteControl()
+    remote = ev3.RemoteControl(channel = 1)
     while True:
         if remote.red_down is True:
             break
@@ -223,7 +223,7 @@ def make_sounds():
               "/home/robot/csse120/assets/sounds/awesome_pcm.wav"
        -- BLUE_DOWN button:  The program breaks out of the loop.
     """
-    remote = ev3.RemoteControl()
+    remote = ev3.RemoteControl(channel = 1)
     while True:
         if remote.red_up is True:
             ev3.Sound.beep().wait()
