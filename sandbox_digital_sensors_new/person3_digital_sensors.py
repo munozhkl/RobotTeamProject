@@ -120,9 +120,9 @@ def print_state_of_blue_up_button_on_ir_beacon(n, seconds_per_print):
     # DONE: 3.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
-    button = ev3.Button()
+    remote = ev3.RemoteControl()
     for k in range(n):
-        print(button.blue_up)
+        print(remote.blue_up)
         time.sleep(seconds_per_print)
 
 
@@ -191,9 +191,9 @@ def wait_for_RED_DOWN_button_press():
     # DONE: 4.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
-    button = ev3.Button()
+    remote = ev3.RemoteControl()
     while True:
-        if button.red_down is True:
+        if remote.red_down is True:
             break
         time.sleep(.05)
 
@@ -223,15 +223,15 @@ def make_sounds():
               "/home/robot/csse120/assets/sounds/awesome_pcm.wav"
        -- BLUE_DOWN button:  The program breaks out of the loop.
     """
-    button = ev3.Button()
+    remote = ev3.RemoteControl()
     while True:
-        if button.red_up is True:
+        if remote.red_up is True:
             ev3.Sound.beep().wait()
-        if button.red_down is True:
+        if remote.red_down is True:
             ev3.Sound.speak("Hello").wait()
-        if button.blue_up is True:
+        if remote.blue_up is True:
             ev3.Sound.play("/home/robot/csse120/assets/sounds/awesome_pcm.wav").wait()
-        if button.blue_down is True:
+        if remote.blue_down is True:
             break
 
 
