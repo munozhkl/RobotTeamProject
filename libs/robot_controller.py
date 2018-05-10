@@ -63,6 +63,17 @@ class Snatch3r(object):
         self.left_motor.stop()
         self.right_motor.stop()
 
+    def turn_left(self, degrees, speed, stop_action = 'brake'):
+        self.left_motor.run_to_rel_pos(speed_sp=-speed, position_sp=degrees, stop_action=stop_action)
+        self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.left_motor.stop()
+
+    def turn_right(self, degrees, speed, stop_action= 'brake'):
+        self.left_motor.run_to_rel_pos(speed_sp=speed, position_sp=degrees, stop_action=stop_action)
+        self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.left_motor.stop()
+
+
 
 
 
