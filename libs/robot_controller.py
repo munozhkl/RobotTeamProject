@@ -23,6 +23,7 @@ class Snatch3r(object):
     def __init__(self):
        self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
        self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+       self.exit = 0
 
        assert self.left_motor.connected
        assert self.right_motor.connected
@@ -77,12 +78,18 @@ class Snatch3r(object):
     def forward_push(self,left_speed,right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
         self.left_motor.run_forever(speed_sp=left_speed)
-        
+
+    def shutdown(self):
+        self.right_motor.run_forever(speed_sp=0)
+        self.left_motor.run_forever(speed_sp=0)
+        self.exit = 1
+
 
     def loop_forever(self):
         while True:
+            if self.exit == 1:
+                break
             time.sleep(.05)
-
 
 
 
