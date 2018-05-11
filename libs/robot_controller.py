@@ -18,6 +18,7 @@ import time
 
 class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
+
     
     def __init__(self):
        self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
@@ -73,7 +74,14 @@ class Snatch3r(object):
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         self.left_motor.stop()
 
+    def forward_push(self,left_speed,right_speed):
+        self.right_motor.run_forever(speed_sp=right_speed)
+        self.left_motor.run_forever(speed_sp=left_speed)
+        
 
+    def loop_forever(self):
+        while True:
+            time.sleep(.05)
 
 
 

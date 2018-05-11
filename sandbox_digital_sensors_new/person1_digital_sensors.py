@@ -226,8 +226,9 @@ def show_images(list_of_images):
     for k in range(len(list_of_images)):
         print('press the touch sensor for next image')
         list_of_images[1].attatch_to(screen)
-        while touch.is_pressed == 0:
-            
+        #while touch.is_pressed == 0:
+
+
 
     """
     Constructs an ev3.Screen object and an ev3.TouchSensor object.
