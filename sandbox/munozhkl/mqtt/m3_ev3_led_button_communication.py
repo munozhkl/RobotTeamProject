@@ -73,6 +73,10 @@ class MyDelegate(object):
         self.running = True
 
 
+    def rocky(self):
+        print('Hi, Rocky!')
+
+
     def set_led(self, led_side_string, led_color_string):
 
         print("Received: {} {}".format(led_side_string, led_color_string))
