@@ -78,7 +78,7 @@ def main():
     self_drive.grid(row=7, column=0)
     self_drive['command'] = lambda: follow_line(mqtt_client)
     root.bind('<p>', lambda event: follow_line(mqtt_client))
-    
+
     root.mainloop()
 
 
