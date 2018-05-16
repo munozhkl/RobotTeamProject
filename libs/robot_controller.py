@@ -123,6 +123,7 @@ class Snatch3r(object):
             time.sleep(.05)
 
 
+    def follow_line(self):
 
 
 
