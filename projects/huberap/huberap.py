@@ -124,8 +124,7 @@ def back(mqtt_client, left_speed_entry, right_speed_entry):
         mqtt_client.send_message("forward_push", [-int(left_speed_entry.get()), -int(right_speed_entry.get())])
 
 def follow_line():
-    print('Stay in lane')
-    mqtt_client.send_message("follow_line")
-
+        print('Stay in lane')
+        mqtt_client.send_message("follow_line")
 
 main()
