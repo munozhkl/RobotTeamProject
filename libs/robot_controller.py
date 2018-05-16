@@ -25,6 +25,7 @@ class Snatch3r(object):
        self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
        self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
        self.touch_sensor = ev3.TouchSensor()
+
        self.exit = 0
 
        assert self.left_motor.connected
@@ -124,6 +125,11 @@ class Snatch3r(object):
 
 
     def follow_line(self):
+        if self.color_sensor.reflected_light_intensity <= 30:
+            self.right_motor.run_forever()
+
+        if self.color_sensor.reflected_light_intensity >= 70:
+            self.left_motor.run_forever()
 
 
 

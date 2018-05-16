@@ -74,6 +74,11 @@ def main():
     e_button.grid(row=6, column=2)
     e_button['command'] = (lambda: quit_program(mqtt_client, True))
 
+    self_drive = ttk.Button(main_frame, text="Self drive")
+    self_drive.grid(row=7, column=0)
+    self_drive['command'] = lambda: follow_line(mqtt_client)
+    root.bind('<p>', lambda event: follow_line(mqtt_client))
+    
     root.mainloop()
 
 
