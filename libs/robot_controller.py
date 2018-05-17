@@ -133,7 +133,6 @@ class Snatch3r(object):
         ev3.Sound.speak(soundlist[var]).wait()
 
     def follow_line(self):
-        print(self.color_sensor.reflected_light_intensity)
 
         while True:
             if self.color_sensor.reflected_light_intensity <= 20:
