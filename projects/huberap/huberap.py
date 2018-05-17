@@ -79,6 +79,12 @@ def main():
     self_drive['command'] = lambda: follow_line(mqtt_client)
     root.bind('<p>', lambda event: follow_line(mqtt_client))
 
+    self_drive = ttk.Button(main_frame, text="Honk horn")
+    self_drive.grid(row=7, column=2)
+    self_drive['command'] = lambda: honk(mqtt_client)
+    root.bind('<h>', lambda event: honk(mqtt_client))
+
+
     root.mainloop()
 
 
@@ -126,5 +132,9 @@ def back(mqtt_client, left_speed_entry, right_speed_entry):
 def follow_line(mqtt_client):
         print('Stay in lane')
         mqtt_client.send_message("follow_line")
+
+def honk(mqtt_client):
+    print('honk honk')
+    mqtt_client.send_message("honk")
 
 main()
