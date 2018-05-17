@@ -126,6 +126,7 @@ class Snatch3r(object):
     def follow_line(self):
         while True:
             print(self.color_sensor.reflected_light_intensity)
+            time.sleep(1)
            # if self.color_sensor.reflected_light_intensity <= 30:
              #   self.right_motor.run_forever()
 
