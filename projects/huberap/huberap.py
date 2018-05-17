@@ -145,8 +145,6 @@ def honk(mqtt_client):
         print('honk honk')
         mqtt_client.send_message("honk")
 
-def show_frame():
-        print('Rover Camera')
-        mgtt_client.send_message("show_frame")
+
 
 main()
