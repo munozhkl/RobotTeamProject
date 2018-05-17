@@ -74,13 +74,21 @@ def main():
     e_button.grid(row=6, column=2)
     e_button['command'] = (lambda: quit_program(mqtt_client, True))
 
+    self_drive_label = ttk.Label(main_frame, text="Self Drive Mode",background="#ff8533",font=("Helvetica", 16),foreground="#3d3d5c")
+    self_drive_label.grid(row=7, column=0)
     self_drive = ttk.Button(main_frame, text="Self drive")
-    self_drive.grid(row=7, column=0)
+    self_drive.grid(row=8, column=0)
     self_drive['command'] = lambda: follow_line(mqtt_client)
     root.bind('<p>', lambda event: follow_line(mqtt_client))
 
+## gui color
+    self_drive_label = ttk.Label(main_frame,text='                        ',font=("Helvetica", 16), background="#ff8533")
+    self_drive_label.grid(row=7,column=1)
+
+    self_drive_label = ttk.Label(main_frame, text="Self Drive Mode", font=("Helvetica", 16), background="#ff8533",foreground="#3d3d5c")
+    self_drive_label.grid(row=7, column=2)
     self_drive = ttk.Button(main_frame, text="Honk horn")
-    self_drive.grid(row=7, column=2)
+    self_drive.grid(row=8, column=2)
     self_drive['command'] = lambda: honk(mqtt_client)
     root.bind('<h>', lambda event: honk(mqtt_client))
 
