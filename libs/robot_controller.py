@@ -147,6 +147,10 @@ class Snatch3r(object):
         ev3.Sound.speak('uh oh').wait()
 
 
+##### video camera
+    def show_frame(self):
+        while True:
+            self.pixy
 
 
 
