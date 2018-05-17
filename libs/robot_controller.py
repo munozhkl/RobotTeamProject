@@ -143,6 +143,7 @@ class Snatch3r(object):
                 break
         self.left_motor.run_forever(speed_sp=0)
         self.right_motor.run_forever(speed_sp=0)
+        ev3.Sound.speak('uh oh')
 
 
 
