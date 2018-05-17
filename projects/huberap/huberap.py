@@ -92,18 +92,6 @@ def main():
     self_drive['command'] = lambda: honk(mqtt_client)
     root.bind('<h>', lambda event: honk(mqtt_client))
 
-# establishing video frame
-    window = tkinter.Tk()  # Makes main window
-    window.wm_title("Rover Camera")
-    window.config(background="#006600")
-    imageFrame = tkinter.Frame(window, width=600, height=500)
-    imageFrame.grid(row=0, column=0, padx=10, pady=2)
-
-#get frames
-    lmain = tkinter.Label(imageFrame)
-    lmain.grid(row=0, column=0)
-    cap = pixy.VideoCapture(0)
-
 
     root.mainloop()
 
@@ -154,10 +142,11 @@ def follow_line(mqtt_client):
         mqtt_client.send_message("follow_line")
 
 def honk(mqtt_client):
-    print('honk honk')
-    mqtt_client.send_message("honk")
+        print('honk honk')
+        mqtt_client.send_message("honk")
 
 def show_frame():
-    mgtt_client.send_message("show_frame")
+        print('Rover Camera')
+        mgtt_client.send_message("show_frame")
 
 main()

@@ -150,7 +150,7 @@ class Snatch3r(object):
 ##### video camera
     def show_frame(self):
         while True:
-            self.pixy
+            image = self.pixy
 
 
 
