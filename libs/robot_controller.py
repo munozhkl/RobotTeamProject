@@ -14,6 +14,7 @@
 import ev3dev.ev3 as ev3
 import math
 import time
+import random
 
 
 class Snatch3r(object):
@@ -27,7 +28,6 @@ class Snatch3r(object):
        self.touch_sensor = ev3.TouchSensor()
        self.color_sensor = ev3.ColorSensor()
        self.ir_sensor = ev3.InfraredSensor()
-       self.pixy = ev3.Sensor(driver_name="pixy-lego")
 
        self.exit = 0
 
@@ -127,16 +127,20 @@ class Snatch3r(object):
             time.sleep(.05)
 
     def honk(self):
+        var = random.randint(0, 4)
         ev3.Sound.beep().wait()
-        ev3.Sound.speak('get out of my way').wait()
+        soundlist = ['get out of my way','watch where you are going','im driving here!', 'move it or lose it']
+        ev3.Sound.speak(soundlist[var]).wait()
 
     def follow_line(self):
+        print(self.color_sensor.reflected_light_intensity)
+
         while True:
-            if self.color_sensor.reflected_light_intensity <= 80:
+            if self.color_sensor.reflected_light_intensity <= 20:
                 self.right_motor.run_forever(speed_sp=300)
                 self.left_motor.run_forever(speed_sp=100)
-
-            if self.color_sensor.reflected_light_intensity > 80:
+#
+            if self.color_sensor.reflected_light_intensity > 20:
                 self.left_motor.run_forever(speed_sp=300)
                 self.right_motor.run_forever(speed_sp=100)
 
