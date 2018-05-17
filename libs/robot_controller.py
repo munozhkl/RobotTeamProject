@@ -26,6 +26,7 @@ class Snatch3r(object):
        self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
        self.touch_sensor = ev3.TouchSensor()
        self.color_sensor = ev3.ColorSensor()
+       self.ir_sensor = ev3.InfraredSensor()
 
        self.exit = 0
 
@@ -126,14 +127,17 @@ class Snatch3r(object):
 
     def follow_line(self):
         while True:
-            print(self.color_sensor.reflected_light_intensity)
-            time.sleep(1)
-           # if self.color_sensor.reflected_light_intensity <= 30:
-             #   self.right_motor.run_forever()
+            if self.color_sensor.reflected_light_intensity <= 80:
+                self.right_motor.run_forever(speed_sp=300)
+                self.left_motor.run_forever(speed_sp=100)
 
-           # if self.color_sensor.reflected_light_intensity >= 70:
-            #    self.left_motor.run_forever()
+            if self.color_sensor.reflected_light_intensity > 80:
+                self.left_motor.run_forever(speed_sp=300)
+                self.right_motor.run_forever(speed_sp=100)
 
+            if self.ir_sensor.proximity <= 10:
+                self.left_motor.run_forever(speed_sp=0)
+                self.right_motor.run_forever(speed_sp=0)
 
 
 
