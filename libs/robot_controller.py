@@ -125,6 +125,10 @@ class Snatch3r(object):
                 break
             time.sleep(.05)
 
+    def honk(self):
+        ev3.Sound.beep().wait()
+        ev3.Sound.speak('get out of my way').wait()
+
     def follow_line(self):
         while True:
             if self.color_sensor.reflected_light_intensity <= 80:
