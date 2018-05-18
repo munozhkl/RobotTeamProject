@@ -4,10 +4,13 @@ import tkinter
 from tkinter import ttk
 import mqtt_remote_method_calls as com
 #  make the pc delegate... but what exactly would the pc receive from the robot?
-mqtt_client = com.MqttClient()
-mqtt_client.connect_to_ev3()
+
 
 def main():
+
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
+
     root = tkinter.Tk()
     root.title('Robot Remote')
     main_frame = ttk.Frame(root, padding= 20)
@@ -17,7 +20,7 @@ def main():
     color_entry_button.grid(row=1,column=3)
     color_entry = ttk.Entry(main_frame,width=8)
     color_entry.grid(row=2,column=3)
-    color_entry_button['command'] = lambda: find_color(mqtt_client,color_entry)
+    color_entry_button['command'] = lambda: find_color(mqtt_client,color_entry.get())
 
     what_color_btn = ttk.Button(main_frame,text='What color is this?')
     what_color_btn.grid(row=3, column=3)
@@ -83,16 +86,21 @@ def main():
 
     root.mainloop()
 
-main()
+
 #goes and finds the color entered, need to make function in robot
 def find_color(mqtt_client,color_entry):
-    print('Finding the color {}'.format(color_entry))
-    mqtt_client.send_message('go_find_color')
+    print('Finding the color', color_entry )
+    if color_entry == 'blue':
+        mqtt_client.send_message('go_find_color', 'SIG1')
+    if color_entry == 'green':
+        mqtt_client.send_message('go_find_color', 'SIG2')
+
 
 
 def what_color(mqtt_client):
     # maybe the pc could recieve the color in text form as well
-    mqtt_client.send_message('what_color_is_this')
+    print('what color works')
+    mqtt_client.send_message('what_color')
 
 
 def quit_program(mqtt_client, shutdown_ev3):
@@ -135,6 +143,8 @@ def send_up(mqtt_client):
 def send_down(mqtt_client):
     print("arm_down")
     mqtt_client.send_message("arm_down")
+
+main()
 
 
 
