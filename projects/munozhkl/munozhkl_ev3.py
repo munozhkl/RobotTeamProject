@@ -9,6 +9,8 @@ class Teacher(object):
     def __init__(self):
         self.robot = robo.Snatch3r()
         self.pixy = ev3.Sensor(driver_name="pixy_lego")
+        print(self.pixy)
+        print('made the pixy')
 
     def loop_forever(self):
         self.robot.loop_forever()
@@ -54,8 +56,10 @@ class Teacher(object):
 
 
     def go_find_color(self,signature):
-        print('starting go_find_color')
-        self.pixy.mode = signature
+        print('starting go_find_color', signature)
+        print(self.pixy)
+        time.sleep(1)
+        self.pixy.mode = 'SIG1'
         self.robot.forward_push(-300,300)
         # self.see_color()
         # while True:

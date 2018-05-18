@@ -68,12 +68,12 @@ def main():
     up_button = ttk.Button(main_frame, text="Up")
     up_button.grid(row=5, column=0)
     up_button['command'] = lambda: send_up(mqtt_client)
-    root.bind('<u>', lambda event: send_up(mqtt_client))
+
 
     down_button = ttk.Button(main_frame, text="Down")
     down_button.grid(row=6, column=0)
     down_button['command'] = lambda: send_down(mqtt_client)
-    root.bind('<j>', lambda event: send_down(mqtt_client))
+
 
     # Buttons for quit and exit
     q_button = ttk.Button(main_frame, text="Quit")
@@ -91,9 +91,9 @@ def main():
 def find_color(mqtt_client,color_entry):
     print('Finding the color', color_entry )
     if color_entry == 'blue':
-        mqtt_client.send_message('go_find_color', 'SIG1')
+        mqtt_client.send_message('go_find_color', ['SIG1'])
     if color_entry == 'green':
-        mqtt_client.send_message('go_find_color', 'SIG2')
+        mqtt_client.send_message('go_find_color', ['SIG2'])
 
 
 
