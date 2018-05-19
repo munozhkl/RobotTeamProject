@@ -99,7 +99,7 @@ def find_color(mqtt_client,color_entry):
 
 def what_color(mqtt_client):
     # maybe the pc could recieve the color in text form as well
-    print('what color works')
+    print('what color is this?')
     mqtt_client.send_message('what_color')
 
 

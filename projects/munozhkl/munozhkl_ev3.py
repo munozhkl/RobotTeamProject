@@ -6,14 +6,17 @@ import time
 import mqtt_remote_method_calls as com
 
 class Teacher(object):
-    def __init__(self):
+    def __init__(self, pixy):
         self.robot = robo.Snatch3r()
-        self.pixy = ev3.Sensor(driver_name="pixy_lego")
+        self.pixy = pixy
+        print(pixy.value(1))
+        print(self.pixy.value(1))
         print(self.pixy)
         print('made the pixy')
 
     def loop_forever(self):
         self.robot.loop_forever()
+
 
     def forward_push(self, left_speed_entry, right_speed_entry):
         self.robot.forward_push(left_speed_entry, right_speed_entry)
@@ -29,23 +32,31 @@ class Teacher(object):
 
     def what_color(self):
         print('Starting what_color')
+        print(self.pixy.mode)
         self.pixy.mode = 'SIG1'
+        print(self.pixy.mode)
+        time.sleep(0.5)
         width = self.pixy.value(3)
         height = self.pixy.value(4)
-        if width*height > 640:
-            ev3.Sound.speak('This is the color blue')
+        if width*height > 50:
+            ev3.Sound.speak('This is the color blue').wait()
+            ev3.Sound.speak('B, L, U, E').wait()
+
         self.pixy.mode = 'SIG2'
+        print(self.pixy.mode)
+        time.sleep(0.5)
         width = self.pixy.value(3)
         height = self.pixy.value(4)
-        if width*height > 640:
-            ev3.Sound.speak('This is the color green')
+        if width*height > 50:
+            ev3.Sound.speak('This is the color green').wait()
+            ev3.Sound.speak('G, R, E, E, N').wait()
         else:
-            return "Nothing"
+            ev3.Sound.speak('I do not see anything')
 
     def see_color(self,signature):
         print('starting see_color')
         self.pixy.mode = signature
-        if self.pixy.value(3)*self.pixy.value(4) > 640:
+        if self.pixy.value(3)*self.pixy.value(4) > 100:
             self.robot.forward_push(0,0)
             return True
             # self.robot.forward_push(0,0)
@@ -58,22 +69,33 @@ class Teacher(object):
     def go_find_color(self,signature):
         print('starting go_find_color', signature)
         print(self.pixy)
+        self.pixy.mode = signature
+        print(self.pixy.mode)
         time.sleep(1)
-        self.pixy.mode = 'SIG1'
+        # print(self.pixy.value(1))
+        # time.sleep(1)
         self.robot.forward_push(-300,300)
-        # self.see_color()
-        # while True:
-        #     if self.see_color(signature) is True:
-        #         if signature == 'SIG1':
-        #             ev3.Sound.speak('I found the color blue')
-        #         if signature == 'SIG2':
-        #             ev3.Sound.speak('I found the color green')
+
+        while True:
+            if self.see_color(signature) is True:
+                if signature == 'SIG1':
+                    ev3.Sound.speak('I found the color blue').wait()
+                    ev3.Sound.speak('Spell the word blue').wait()
+                    ev3.Sound.speak('B, L, U, E').wait()
+                    break
+                if signature == 'SIG2':
+                    ev3.Sound.speak('I found the color green').wait()
+                    ev3.Sound.speak('Spell the word green').wait()
+                    ev3.Sound.speak('G, R, E, E, N').wait()
+                    break
 
 
 
 
 def main():
-    teacher = Teacher()
+    pixy = ev3.Sensor(driver_name="pixy-lego")
+    print(pixy.value(1))
+    teacher = Teacher(pixy)
 
     mqtt_client = com.MqttClient(teacher)
     mqtt_client.connect_to_pc()
