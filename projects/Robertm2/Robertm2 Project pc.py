@@ -15,9 +15,12 @@ def main():
     right_speed_entry = ttk.Entry(main_frame, width=8)
     right_speed_entry.grid(row=1, column= 0)
 
-    left_speed_label = ttk.Label(main_frame, text='Right Speed')
+    left_speed_label = ttk.Label(main_frame, text='Left Speed')
     left_speed_label.grid()
     left_speed_entry = ttk.Entry(main_frame, width=8)
     left_speed_entry.grid(row=1, column=0)
 
-    
+
+
+
+
