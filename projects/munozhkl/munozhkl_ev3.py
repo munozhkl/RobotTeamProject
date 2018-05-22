@@ -13,6 +13,7 @@ class Teacher(object):
         print(self.pixy.value(1))
         print(self.pixy)
         print('made the pixy')
+        self.mqtt_client = None
 
     def loop_forever(self):
         self.robot.loop_forever()
@@ -39,7 +40,15 @@ class Teacher(object):
         width = self.pixy.value(3)
         height = self.pixy.value(4)
         if width*height > 50:
-            ev3.Sound.speak('This is the color blue').wait()
+            self.mqtt_client.send_message('color_found', ['blue'])
+            ev3.Sound.speak('This is the').wait()
+            time.sleep(0.5)
+            ev3.Sound.speak('color blue').wait()
+            time.sleep(0.5)
+            ev3.Sound.speak('Spell the').wait()
+            time.sleep(0.5)
+            ev3.Sound.speak('word blue').wait()
+            time.sleep(0.5)
             ev3.Sound.speak('B, L, U, E').wait()
 
         self.pixy.mode = 'SIG2'
@@ -48,7 +57,15 @@ class Teacher(object):
         width = self.pixy.value(3)
         height = self.pixy.value(4)
         if width*height > 50:
-            ev3.Sound.speak('This is the color green').wait()
+            self.mqtt_client.send_message('color_found', ['green'])
+            ev3.Sound.speak('This is the').wait()
+            time.sleep(0.5)
+            ev3.Sound.speak('color green').wait()
+            time.sleep(0.5)
+            ev3.Sound.speak('Spell the').wait()
+            time.sleep(0.5)
+            ev3.Sound.speak('word green').wait()
+            time.sleep(0.5)
             ev3.Sound.speak('G, R, E, E, N').wait()
         else:
             ev3.Sound.speak('I do not see anything')
@@ -79,13 +96,27 @@ class Teacher(object):
         while True:
             if self.see_color(signature) is True:
                 if signature == 'SIG1':
-                    ev3.Sound.speak('I found the color blue').wait()
-                    ev3.Sound.speak('Spell the word blue').wait()
+                    self.mqtt_client.send_message('color_found', ['blue'])
+                    ev3.Sound.speak('I found the').wait()
+                    time.sleep(0.5)
+                    ev3.Sound.speak('color blue').wait()
+                    time.sleep(0.5)
+                    ev3.Sound.speak('Spell the').wait()
+                    time.sleep(0.5)
+                    ev3.Sound.speak('word blue').wait()
+                    time.sleep(0.5)
                     ev3.Sound.speak('B, L, U, E').wait()
                     break
                 if signature == 'SIG2':
-                    ev3.Sound.speak('I found the color green').wait()
-                    ev3.Sound.speak('Spell the word green').wait()
+                    self.mqtt_client.send_message('color_found', ['green'])
+                    ev3.Sound.speak('I found the').wait()
+                    time.sleep(0.5)
+                    ev3.Sound.speak('color green').wait()
+                    time.sleep(0.5)
+                    ev3.Sound.speak('Spell the').wait()
+                    time.sleep(0.5)
+                    ev3.Sound.speak('word green').wait()
+                    time.sleep(0.5)
                     ev3.Sound.speak('G, R, E, E, N').wait()
                     break
 
@@ -98,6 +129,7 @@ def main():
     teacher = Teacher(pixy)
 
     mqtt_client = com.MqttClient(teacher)
+    teacher.mqtt_client = mqtt_client
     mqtt_client.connect_to_pc()
 
 

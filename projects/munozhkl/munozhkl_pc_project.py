@@ -6,9 +6,20 @@ import mqtt_remote_method_calls as com
 #  make the pc delegate... but what exactly would the pc receive from the robot?
 
 
-def main():
+class DelegateForPC(object):
 
-    mqtt_client = com.MqttClient()
+    def color_found(self,color_string):
+        print('The robot has found the color', color_string)
+        self.color['text'] = color_string
+
+
+
+
+
+
+def main():
+    pc_delegate = DelegateForPC()
+    mqtt_client = com.MqttClient(pc_delegate)
     mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
@@ -21,6 +32,11 @@ def main():
     color_entry = ttk.Entry(main_frame,width=8)
     color_entry.grid(row=2,column=3)
     color_entry_button['command'] = lambda: find_color(mqtt_client,color_entry.get())
+    color_found_label = ttk.Label(main_frame,text='Color Found:')
+    color_found_label.grid(row=1, column=4)
+    color = ttk.Label(main_frame,text='???')
+    color.grid(row=2,column=4)
+    pc_delegate.color = color
 
     what_color_btn = ttk.Button(main_frame,text='What color is this?')
     what_color_btn.grid(row=3, column=3)
@@ -143,6 +159,8 @@ def send_up(mqtt_client):
 def send_down(mqtt_client):
     print("arm_down")
     mqtt_client.send_message("arm_down")
+
+
 
 main()
 
