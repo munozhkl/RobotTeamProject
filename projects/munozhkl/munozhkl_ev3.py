@@ -39,7 +39,7 @@ class Teacher(object):
         time.sleep(0.5)
         width = self.pixy.value(3)
         height = self.pixy.value(4)
-        if width*height > 50:
+        if width*height > 200:
             self.mqtt_client.send_message('color_found', ['blue'])
             ev3.Sound.speak('This is the').wait()
             time.sleep(0.5)
@@ -56,7 +56,7 @@ class Teacher(object):
         time.sleep(0.5)
         width = self.pixy.value(3)
         height = self.pixy.value(4)
-        if width*height > 50:
+        if width*height > 200:
             self.mqtt_client.send_message('color_found', ['green'])
             ev3.Sound.speak('This is the').wait()
             time.sleep(0.5)
@@ -73,7 +73,7 @@ class Teacher(object):
     def see_color(self,signature):
         print('starting see_color')
         self.pixy.mode = signature
-        if self.pixy.value(3)*self.pixy.value(4) > 100:
+        if self.pixy.value(3)*self.pixy.value(4) > 200:
             self.robot.forward_push(0,0)
             return True
             # self.robot.forward_push(0,0)
