@@ -30,7 +30,7 @@ class Trainer(object):
         height = self.pixy.value(4)
         if width*height > 100:
             ev3.Sound.speak('Pikachu, I choose you').wait()
-    
+
 
 
 

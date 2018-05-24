@@ -106,7 +106,7 @@ def quit(mqtt_client, shutdown_ev3):
     mqtt_client.close()
     exit()
 
-
+main()
 
 
 
