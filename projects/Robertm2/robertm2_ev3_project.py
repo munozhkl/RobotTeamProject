@@ -39,27 +39,25 @@ class Trainer(object):
 
 
 
-    """
-    def catches_pokemon(self, signature):
-        self.pixy.mode = signature
-        self.robot.forward_push(-250, 250)
 
-        while True:
-            if self.spots_pokemon(signature) is True:
-                if signature == 'SIG1':
-                    self.robot.arm_up().wait()
-                    ev3.Sound.speak('I caught Bulbasaur').wait()
-                    break
-                if signature == 'SIG2':
-                    self.robot.arm_up().wait()
-                    ev3.Sound.speak('I caught Squirtle').wait()
-                    break
-                if signature == 'SIG3':
-                    self.robot.arm_up().wait()
-                    ev3.Sound.speak('I caught Charmander').wait()
-                    break
-    """
+    #def catches_pokemon(self, signature):
+    #    self.pixy.mode = signature
+    #    self.robot.forward_push(-250, 250)
 
+    #   while True:
+    #        if self.spots_pokemon(signature) is True:
+    #            if signature == 'SIG1':
+    #                self.robot.arm_up().wait()
+    #                ev3.Sound.speak('I caught Bulbasaur').wait()
+    #                break
+    #            if signature == 'SIG2':
+    #                self.robot.arm_up().wait()
+    #                ev3.Sound.speak('I caught Squirtle').wait()
+    #                break
+    #            if signature == 'SIG3':
+    #                self.robot.arm_up().wait()
+    #                ev3.Sound.speak('I caught Charmander').wait()
+    #                break
 
 def main():
     pixy = ev3.Sensor(driver_name = "pixy-lego")
