@@ -24,22 +24,31 @@ class Trainer(object):
     def shutdown(self):
         self.robot.shutdown()
 
-    def spots_pokemon(self):
-        self.pixy.mode = 'SIG1'
-        width = self.pixy.value(3)
-        height = self.pixy.value(4)
-        if width*height > 100:
-            ev3.Sound.speak('I caught Bulbasaur').wait()
-        self.pixy.mode = 'SIG2'
-        width = self.pixy.value(3)
-        height = self.pixy.value(4)
-        if width*height > 100:
-            ev3.Sound.speak('I caught Squritle ').wait()
-        self.pixy.mode = 'SIG3'
-        width = self.pixy.value(3)
-        height = self.pixy.value(4)
-        if width*height > 100:
-            ev3.Sound.speak('I caught Charmander').wait()
+    def spots_pokemon(self, signature):
+        self.pixy.mode = signature
+        if self.pixy.value(3)*self.pixy.value(4) > 100:
+            self.robot.forward_push(0,0)
+            return True
+    def catches_pokemon(self, signature):
+        self.pixy.mode = signature
+        self.robot.forward_push(-250, 250)
+
+        while True:
+            if self.spots_pokemon(signature) is True:
+                if signature == 'SIG1':
+                    self.robot.arm_up().wait()
+                    ev3.Sound.speak('I caught Bulbasaur').wait()
+                    break
+                if signature == 'SIG2':
+                    self.robot.arm_up().wait()
+                    ev3.Sound.speak('I caught Squirtle').wait()
+                    break
+                if signature == 'SIG3':
+                    self.robot.arm_up().wait()
+                    ev3.Sound.speak('I caught Charmander').wait()
+                    break
+
+
 
 
 def main():

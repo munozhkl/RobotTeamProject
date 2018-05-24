@@ -23,6 +23,10 @@ def main():
     search_button.grid(row = 7, column = 3)
     search_button['command'] = lambda: search(mqtt_client)
 
+    capture_button = ttk.Button(main_frame, text = 'Capture Pokemon')
+    capture_button.grid(row = 7, column = 4)
+    capture_button['command'] = lambda: catches(mqtt_client)
+
     right_speed_label = ttk.Label(main_frame, text='Right Speed')
     right_speed_label.grid(row=0, column=0)
     right_speed_entry = ttk.Entry(main_frame, width=8, justify=tkinter.RIGHT)
@@ -116,6 +120,11 @@ def quit(mqtt_client, shutdown_ev3):
 def search(mqtt_client):
     print('Searching for pokemon')
     mqtt_client.send_message('spots_pokemon')
+
+def catches(mqtt_client):
+    print('Capturing pokemon')
+    mqtt_client.send_message('catches_pokemon')
+
 
 main()
 
