@@ -25,16 +25,16 @@ class Trainer(object):
         self.robot.shutdown()
 
     def spots_pokemon(self):
-        if self.pixy.mode == 'SIG1':
-            ev3.Sound.speak('I have found Bulbasaur').wait()
-
-        if self.pixy.mode == 'SIG2':
-            ev3.Sound.speak('I have found Squritle').wait()
-
-        if self.pixy.mode == 'SIG3':
-            ev3.Sound.speak('I have found Charmander').wait()
-        else:
-            ev3.Sound.speak('There are no pokemon here').wait()
+        while True:
+            if self.pixy.mode == 'SIG1':
+                ev3.Sound.speak('I have found Bulbasaur').wait()
+                break
+            if self.pixy.mode == 'SIG2':
+                ev3.Sound.speak('I have found Squritle').wait()
+                break
+            #if self.pixy.mode == 'SIG3':
+            #    ev3.Sound.speak('I have found Charmander').wait()
+            #    break
 
 
 
