@@ -87,10 +87,6 @@ class Snatch3r(object):
         self.right_motor.run_forever(speed_sp=right_speed)
         self.left_motor.run_forever(speed_sp=left_speed)
 
-    def backward_push(self, left_speed, right_speed):
-        self.right_motor.run_forever(speed_sp=-right_speed)
-        self.left_motor.run_forever(speed_sp=-left_speed)
-
     def shutdown(self):
         self.right_motor.run_forever(speed_sp=0)
         self.left_motor.run_forever(speed_sp=0)
@@ -135,6 +131,7 @@ class Snatch3r(object):
         ev3.Sound.beep().wait()
         soundlist = ['get out of my way','watch where you are going','im driving here!', 'move it or lose it']
         ev3.Sound.speak(soundlist[var]).wait()
+
 
     def follow_line(self):
 

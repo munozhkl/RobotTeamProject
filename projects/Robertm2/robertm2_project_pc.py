@@ -77,15 +77,15 @@ def forward(mqtt_client, left_speed_entry, right_speed_entry):
 
 def backward(mqtt_client, left_speed_entry, right_speed_entry):
     print('Backward is working')
-    mqtt_client.send_message("backward_push", [-int(left_speed_entry.get()), -int(right_speed_entry.get())])
+    mqtt_client.send_message("forward_push", [-int(left_speed_entry.get()), -int(right_speed_entry.get())])
 
 def right(mqtt_client, left_speed_entry, right_speed_entry):
     print('Right is working')
-    mqtt_client.send_message("right_push", [int(left_speed_entry()), -int(right_speed_entry())])
+    mqtt_client.send_message("forward_push", [int(left_speed_entry()), -int(right_speed_entry())])
 
 def left(mqtt_client, left_speed_entry, right_speed_entry):
     print('Left is working')
-    mqtt_client.send_message("left_push", [-int(left_speed_entry()), int(right_speed_entry())])
+    mqtt_client.send_message("forward_push", [-int(left_speed_entry()), int(right_speed_entry())])
 
 def send_up(mqtt_client):
     print('Arm up is working')
