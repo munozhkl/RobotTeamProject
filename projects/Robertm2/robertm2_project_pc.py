@@ -28,46 +28,46 @@ def main():
     left_speed_entry.grid(row=1, column=1)
 
     forward_button = ttk.Button(main_frame, text='Forward')
-    forward_button.grid(row = 3, column = 3)
+    forward_button.grid(row = 3, column = 2)
     forward_button['command'] = lambda: forward(mqtt_client, left_speed_entry, right_speed_entry)
     root.bind('<Up>', lambda event: forward(mqtt_client, left_speed_entry, right_speed_entry))
 
     backward_button = ttk.Button(main_frame, text='Backward')
-    backward_button.grid(row = 4, column = 3)
+    backward_button.grid(row = 4, column = 2)
     backward_button['command'] = lambda: backward(mqtt_client, left_speed_entry, right_speed_entry)
     root.bind('<Down>', lambda event: backward(mqtt_client, left_speed_entry, right_speed_entry))
 
     right_button = ttk.Button(main_frame, text ='Right')
-    right_button.grid(row = 3, column = 4)
+    right_button.grid(row = 3, column = 3)
     right_button['command'] = lambda: right(mqtt_client, left_speed_entry, right_speed_entry)
     root.bind('<Right>', lambda event: right(mqtt_client, left_speed_entry, right_speed_entry))
 
     left_button = ttk.Button(main_frame, text='Left')
-    left_button.grid(row = 3, column = 2)
+    left_button.grid(row = 3, column = 1)
     left_button['command'] = lambda: left(mqtt_client, left_speed_entry, right_speed_entry)
     root.bind('<Left>', lambda event: left(mqtt_client, left_speed_entry, right_speed_entry))
 
     arm_up_button = ttk.Button(main_frame, text='Arm Up')
-    arm_up_button.grid(row = 6, column = 2)
+    arm_up_button.grid(row = 2, column = 4)
     arm_up_button['command'] = lambda: send_up(mqtt_client)
     root.bind('<w>', lambda event: send_up(mqtt_client))
 
     arm_down_button = ttk.Button(main_frame, text='Arm Down')
-    arm_down_button.grid(row = 7, columm = 2)
+    arm_down_button.grid(row = 3, columm = 4)
     arm_down_button['command'] = lambda: send_down(mqtt_client)
     root.bind('<s>', lambda event: send_down(mqtt_client))
 
     stop_button = ttk.Button(main_frame, text='Stop')
-    stop_button.grid(row = 6, column = 7)
+    stop_button.grid(row = 5, column = 2)
     stop_button['command'] = lambda: stop(mqtt_client)
     root.bind('<space>', lambda event: stop(mqtt_client))
 
     q_button = ttk.Button(main_frame, text="Quit")
-    q_button.grid(row = 5, column = 2)
+    q_button.grid(row = 5, column = 5)
     q_button['command'] = (lambda: quit(mqtt_client, False))
 
     e_button = ttk.Button(main_frame, text='Exit')
-    e_button.grid(row = 7, column = 6)
+    e_button.grid(row = 6, column = 5)
     e_button['command'] = (lambda: quit(mqtt_client, True))
 
 
