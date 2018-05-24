@@ -24,11 +24,22 @@ class Trainer(object):
     def shutdown(self):
         self.robot.shutdown()
 
-    def spots_pokemon(self, signature):
-        self.pixy.mode = signature
-        if self.pixy.value(3)*self.pixy.value(4) > 100:
-            self.robot.forward_push(0,0)
-            return True
+    def spots_pokemon(self):
+        if self.pixy.mode == 'SIG1':
+            ev3.Sound.speak('I have found Bulbasaur').wait()
+
+        if self.pixy.mode == 'SIG2':
+            ev3.Sound.speak('I have found Squritle').wait()
+
+        if self.pixy.mode == 'SIG3':
+            ev3.Sound.speak('I have found Charmander').wait()
+        else:
+            ev3.Sound.speak('There are no pokemon here').wait()
+
+
+
+
+    """
     def catches_pokemon(self, signature):
         self.pixy.mode = signature
         self.robot.forward_push(-250, 250)
@@ -47,8 +58,7 @@ class Trainer(object):
                     self.robot.arm_up().wait()
                     ev3.Sound.speak('I caught Charmander').wait()
                     break
-
-
+    """
 
 
 def main():

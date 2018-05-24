@@ -117,6 +117,7 @@ def quit(mqtt_client, shutdown_ev3):
         mqtt_client.send_message("shutdown")
     mqtt_client.close()
     exit()
+
 def search(mqtt_client):
     print('Searching for pokemon')
     mqtt_client.send_message('spots_pokemon')
