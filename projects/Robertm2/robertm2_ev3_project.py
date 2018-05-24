@@ -29,9 +29,17 @@ class Trainer(object):
         width = self.pixy.value(3)
         height = self.pixy.value(4)
         if width*height > 100:
-            ev3.Sound.speak('Pikachu, I choose you').wait()
-
-
+            ev3.Sound.speak('I caught Bulbasaur').wait()
+        self.pixy.mode = 'SIG2'
+        width = self.pixy.value(3)
+        height = self.pixy.value(4)
+        if width*height > 100:
+            ev3.Sound.speak('I caught Squritle ').wait()
+        self.pixy.mode = 'SIG3'
+        width = self.pixy.value(3)
+        height = self.pixy.value(4)
+        if width*height > 100:
+            ev3.Sound.speak('I caught Charmander').wait()
 
 
 def main():
@@ -42,3 +50,5 @@ def main():
     mqtt_client.connect_to_pc()
 
     trainer.loop_forever()
+
+main()

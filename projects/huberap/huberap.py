@@ -124,7 +124,7 @@ def stop(mqtt_client):
 
 
 def left(mqtt_client, left_speed_entry, right_speed_entry):
-        print('left works')
+        print('Left works')
         mqtt_client.send_message("forward_push", [-int(left_speed_entry.get()), int(right_speed_entry.get())])
 
 

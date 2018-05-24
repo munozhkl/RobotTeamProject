@@ -17,15 +17,21 @@ def main():
     main_frame = ttk.Frame(root, padding=20)
     main_frame.grid()
 
+
+
+    search_button = ttk.Button(main_frame, text = 'Find Pokemon')
+    search_button.grid(row = 7, column = 3)
+    search_button['command'] = lambda: search(mqtt_client)
+
     right_speed_label = ttk.Label(main_frame, text='Right Speed')
     right_speed_label.grid(row=0, column=0)
     right_speed_entry = ttk.Entry(main_frame, width=8, justify=tkinter.RIGHT)
     right_speed_entry.grid(row=1, column=0)
 
     left_speed_label = ttk.Label(main_frame, text='Left Speed')
-    left_speed_label.grid(row=0, column=2)
+    left_speed_label.grid(row=0, column=1)
     left_speed_entry = ttk.Entry(main_frame, width=8)
-    left_speed_entry.grid(row=1, column=2)
+    left_speed_entry.grid(row=1, column=1)
 
     forward_button = ttk.Button(main_frame, text='Forward')
     forward_button.grid(row=2, column=1)
@@ -70,6 +76,8 @@ def main():
     e_button.grid(row=6, column=2)
     e_button['command'] = (lambda: quit(mqtt_client, True))
 
+    root.mainloop()
+
 
 def forward(mqtt_client, left_speed_entry, right_speed_entry):
     print('Forward is working')
@@ -81,11 +89,11 @@ def backward(mqtt_client, left_speed_entry, right_speed_entry):
 
 def right(mqtt_client, left_speed_entry, right_speed_entry):
     print('Right is working')
-    mqtt_client.send_message("forward_push", [int(left_speed_entry()), -int(right_speed_entry())])
+    mqtt_client.send_message("forward_push", [int(left_speed_entry.get()), -int(right_speed_entry.get())])
 
 def left(mqtt_client, left_speed_entry, right_speed_entry):
     print('Left is working')
-    mqtt_client.send_message("forward_push", [-int(left_speed_entry()), int(right_speed_entry())])
+    mqtt_client.send_message("forward_push", [-int(left_speed_entry.get()), int(right_speed_entry.get())])
 
 def send_up(mqtt_client):
     print('Arm up is working')
@@ -105,6 +113,9 @@ def quit(mqtt_client, shutdown_ev3):
         mqtt_client.send_message("shutdown")
     mqtt_client.close()
     exit()
+def search(mqtt_client):
+    print('Searching for pokemon')
+    mqtt_client.send_message('spots_pokemon')
 
 main()
 
