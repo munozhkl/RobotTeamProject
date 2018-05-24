@@ -19,7 +19,7 @@ def main():
 
     right_speed_label = ttk.Label(main_frame, text='Right Speed')
     right_speed_label.grid(row=0, column=0)
-    right_speed_entry = ttk.Entry(main_frame, width=8)
+    right_speed_entry = ttk.Entry(main_frame, width=8, justify=tkinter.RIGHT)
     right_speed_entry.grid(row=1, column=0)
 
     left_speed_label = ttk.Label(main_frame, text='Left Speed')
@@ -53,7 +53,7 @@ def main():
     root.bind('<w>', lambda event: send_up(mqtt_client))
 
     arm_down_button = ttk.Button(main_frame, text='Arm Down')
-    arm_down_button.grid(row=6, columm=0)
+    arm_down_button.grid(row=6, column=0)
     arm_down_button['command'] = lambda: send_down(mqtt_client)
     root.bind('<s>', lambda event: send_down(mqtt_client))
 
